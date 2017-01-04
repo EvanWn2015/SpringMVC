@@ -5,5 +5,8 @@
 <hibernate-configuration>
 	<session-factory>
 		<mapping resource="domain/Userinfo.hbm.xml" />
+		<mapping resource="domain/Userinfo.hbm.xml" />
+		<mapping resource="domain/Userinfo.hbm.xml" />
+		<mapping resource="domain/Userinfo.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

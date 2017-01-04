@@ -3,27 +3,38 @@ package idv.evan.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public abstract class AbstractDao {
+public abstract class AbstractDao extends HibernateDaoSupport {
 
 	@Autowired
 	SessionFactory sessionFactory;
 
+	protected Session getSession() {
+		return this.sessionFactory.getCurrentSession();
+	}
+
+	public Transaction getTransaction() {
+		return getSession().beginTransaction();
+	}
+
 	public <T> Serializable create(final T entity) {
-		return sessionFactory.getCurrentSession().save(entity);
+		return getSession().save(entity);
 	}
 
 	public <T> T update(final T entity) {
-		sessionFactory.getCurrentSession().update(entity);
+		getSession().update(entity);
 		return entity;
 	}
 
 	public <T> void delete(final T entity) {
-		sessionFactory.getCurrentSession().delete(entity);
+		getSession().delete(entity);
 	}
 
 	public <T> void delete(Serializable id, Class<T> entityClass) {
@@ -33,16 +44,17 @@ public abstract class AbstractDao {
 
 	@SuppressWarnings("unchecked")
 	public <T> List<T> fetchAll(Class<T> entityClass) {
-		return sessionFactory.getCurrentSession().createQuery(" FROM " + entityClass.getName()).list();
+		return getSession().createQuery(" FROM " + entityClass.getName()).list();
 	}
 
 	@SuppressWarnings("rawtypes")
 	public <T> List fetchAll(String query) {
-		return sessionFactory.getCurrentSession().createSQLQuery(query).list();
+		return getSession().createSQLQuery(query).list();
 	}
 
 	@SuppressWarnings("unchecked")
 	public <T> T fetchById(Serializable id, Class<T> entityClass) {
-		return (T) sessionFactory.getCurrentSession().get(entityClass, id);
+		return (T) getSession().get(entityClass, id);
 	}
+
 }

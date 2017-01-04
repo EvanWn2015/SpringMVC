@@ -4,43 +4,58 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import idv.evan.dao.AbstractDao;
 import idv.evan.dao.UserDAO;
 import idv.evan.vo.Userinfo;
 
-//@Repository("userDAO")
-@Repository
+@Repository("userDAO")
 public class UserDaoImpl extends AbstractDao implements UserDAO {
 
+	private Class<Userinfo> clazz = Userinfo.class;
+
+	/**
+	 * HibernateDaoSupport 與 SessionFactory 衝突
+	 * @param sessionFactory
+	 */
+	@Autowired
+	public void setSessionFactoryOverride(SessionFactory sessionFactory) {
+		super.setSessionFactory(sessionFactory);
+	}
+
+
 	public long createUserinfo(Userinfo Userinfo) {
-		return (Long) create(Userinfo);
+		return (Long) super.create(Userinfo);
 	}
 
 	public Userinfo updateUserinfo(Userinfo Userinfo) {
-		return update(Userinfo);
+		return super.update(Userinfo);
 	}
 
 	public void deleteUserinfo(long id) {
 		Userinfo userinfo = new Userinfo();
 		userinfo.setId(id);
-		delete(userinfo);
+		super.delete(userinfo);
 
 	}
 
 	public List<Userinfo> getAllUserinfos() {
-		return fetchAll(Userinfo.class);
+		return super.fetchAll(Userinfo.class);
 	}
 
 	public Userinfo getUserinfo(long id) {
-		return fetchById(id, Userinfo.class);
+		return super.fetchById(id, Userinfo.class);
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<Userinfo> getAllUserinfos(String userinfoName) {
 		String query = "SELECT e.* FROM userinfo e WHERE e.name like '%" + userinfoName + "%'";
-		List<Object[]> userinfoObjects = fetchAll(query);
+		List<Object[]> userinfoObjects = super.fetchAll(query);
 		List<Userinfo> userinfos = new ArrayList<Userinfo>();
 		for (Object[] userinfoObject : userinfoObjects) {
 			Userinfo userinfo = new Userinfo();
@@ -58,4 +73,8 @@ public class UserDaoImpl extends AbstractDao implements UserDAO {
 		return userinfos;
 	}
 
+	@Override
+	public List<Userinfo> findByExample(DetachedCriteria criteria) {
+		return criteria.getExecutableCriteria(super.getSession()).list();
+	}
 }

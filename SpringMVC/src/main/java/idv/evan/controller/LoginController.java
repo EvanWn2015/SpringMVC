@@ -14,19 +14,25 @@ import idv.evan.vo.Userinfo;
 
 @Controller
 public class LoginController {
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired
 	private UserService userService;
 
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public ModelAndView init() {
+		return new ModelAndView("login");
+	}
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView verifyUser(Userinfo userinfo, Model model) {
-		
-		userService.createUserinfo(userinfo);
-		System.out.println(userinfo.getUsername() + "");
-		LOGGER.info("user: {}", userinfo.getUsername());
+		userinfo.setEmail("email@mail.com");
 		ModelAndView mod = new ModelAndView();
 		mod.setViewName("login");
+		if (userService.verifyUser(userinfo)) {
+			mod.setViewName("index");
+		}
 		return mod;
 	}
 }

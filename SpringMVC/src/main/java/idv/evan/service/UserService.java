@@ -17,7 +17,7 @@ public interface UserService {
 	public Userinfo getUserinfo(long id);
 
 	public List<Userinfo> getAllUserinfos(String UserinfoName);
-
+	
 	public boolean verifyUser(Userinfo userinfo);
 
 }

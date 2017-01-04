@@ -3,8 +3,8 @@ package idv.evan.vo;
 import java.io.Serializable;
 
 public class Userinfo implements Serializable {
-	private static final long serialVersionUID = 4585708177728450133L;
-
+	private static final long serialVersionUID = -2049184972826967952L;
+	
 	private Long id;
 	private String username;
 	private String password;
