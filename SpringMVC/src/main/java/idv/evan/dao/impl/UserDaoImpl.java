@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import idv.evan.dao.AbstractDao;
 import idv.evan.dao.UserDAO;
-import idv.evan.vo.Userinfo;
+import idv.evan.domain.Userinfo;
 
 @Repository("userDAO")
 public class UserDaoImpl extends AbstractDao implements UserDAO {

@@ -1,13 +1,24 @@
-package idv.evan.vo;
+package idv.evan.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "USERINFO")
 public class Userinfo implements Serializable {
 	private static final long serialVersionUID = -2049184972826967952L;
-	
+
+	@Id
 	private Long id;
+	@Column(name = "USERNAME", nullable = false)
 	private String username;
+	@Column(name = "PASSWORD", nullable = false)
 	private String password;
+	@Column(name = "EMAL")
 	private String email;
 
 	public Long getId() {
