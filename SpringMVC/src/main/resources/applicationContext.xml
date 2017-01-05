@@ -16,7 +16,8 @@
 	<context:property-placeholder location="classpath:setting.properties" />
 
 	<mvc:annotation-driven />
-	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:default-servlet-handler />
+	<mvc:resources location="/WEB-INF/static/" mapping="/**" />
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/" />

@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import idv.evan.constant.DaoConstants;
 import idv.evan.dao.UserDAO;
+import idv.evan.domain.Userinfo;
 import idv.evan.service.UserService;
-import idv.evan.vo.Userinfo;
 
 @Service("userService")
 @Transactional

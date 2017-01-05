@@ -32,29 +32,23 @@
 			</props>
 		</property>
 		<!-- 可以映射多個設定檔 -->
-		<property name="configLocation">
+		<!-- <property name="configLocation"> <value>classpath:hibernate.cfg.xml</value> 
+			</property> -->
+		<!-- 自動掃描的方式註入實體類 -->
+		<property name="packagesToScan">
 			<list>
-				<value>classpath:hibernate.cfg.xml</value>
+				<value>idv.evan.domain</value>
 			</list>
 		</property>
-
-		<!-- 自動掃描的方式註入實體類 -->
-		<!-- <property name="packagesToScan"> <list> <value>idv.evan.domain</value> 
-			</list> </property> -->
 
 		<!-- annotatedClasses是注入class -->
 		<!-- <property name="annotatedClasses"> <list> <value>idv.evan.vo.Userinfo</value> 
 			</list> </property> -->
 
 		<!-- mappingResource是注入XML -->
-		<!-- <property name="mappingResources">
-			<list>
-				<value>classpath:domain/Userinfo.hbm.xml</value>
-				<value>classpath:domain/Userinfo.hbm.xml</value>
-				<value>classpath:domain/Userinfo.hbm.xml</value>
-				<value>classpath:domain/Userinfo.hbm.xml</value>
-			</list>
-		</property> -->
+		<!-- <property name="mappingResources"> <list> <value>classpath:domain/Userinfo.hbm.xml</value> 
+			<value>classpath:domain/Userinfo.hbm.xml</value> <value>classpath:domain/Userinfo.hbm.xml</value> 
+			<value>classpath:domain/Userinfo.hbm.xml</value> </list> </property> -->
 
 		<!-- <property name="configLocations"> <value>classpath:hibernate.cfg.xml</value> 
 			</property> -->

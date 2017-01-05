@@ -2,7 +2,7 @@ package idv.evan.service;
 
 import java.util.List;
 
-import idv.evan.vo.Userinfo;
+import idv.evan.domain.Userinfo;
 
 public interface UserService {
 

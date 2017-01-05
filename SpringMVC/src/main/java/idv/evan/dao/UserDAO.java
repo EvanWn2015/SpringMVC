@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
 
-import idv.evan.vo.Userinfo;
+import idv.evan.domain.Userinfo;
 
 public interface UserDAO {
 
