@@ -9,10 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import idv.evan.constant.Constant;
 import idv.evan.domain.Userinfo;
+import idv.evan.dto.UserDto;
 import idv.evan.service.UserService;
 
 @Controller
@@ -25,23 +28,30 @@ public class LoginController {
 
 	@RequestMapping(value = { "/login", "/" }, method = RequestMethod.GET)
 	public ModelAndView init(HttpSession session) {
-		logger.info("~~~~~GET session :{}", session.getAttribute(Constant.LOGIN_STATUS));
-		if ((boolean) session.getAttribute(Constant.LOGIN_STATUS)) {
+		if (session.getAttribute(Constant.LOGIN_STATUS) != null) {
+			logger.info("session : {}", session);
 			return new ModelAndView("index");
 		}
+		logger.info("username : {}", "get");
 		return new ModelAndView("login");
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView verifyUser(Userinfo userinfo, Model model, HttpSession session) {
-		session.setAttribute(Constant.LOGIN_STATUS, true);
-		logger.info("username : {}", userinfo.getUsername());
-		userinfo.setEmail("email@mail.com");
-		ModelAndView mod = new ModelAndView();
-		mod.setViewName("login");
+	// @RequestMapping(value = { "/login", "/" }, method = RequestMethod.POST,
+	// produces = "application/json")
+	@RequestMapping(value = { "/login", "/" }, method = RequestMethod.POST)
+	@ResponseBody
+	public ModelAndView verifyUser(UserDto userDto, Model model, HttpSession session) {
+		logger.info("username : {}", userDto.getUsername());
+		Userinfo userinfo = new Userinfo();
+		userinfo.setUsername(userDto.getUsername());
+		userinfo.setPassword(userDto.getPassword());
+		logger.info("verifyUser : {}", userService.verifyUser(userinfo));
+
 		if (userService.verifyUser(userinfo)) {
-			mod.setViewName("index");
+			session.setAttribute(Constant.LOGIN_STATUS, true);
+			return new ModelAndView("index");
 		}
-		return mod;
+		return new ModelAndView("login");
+
 	}
 }

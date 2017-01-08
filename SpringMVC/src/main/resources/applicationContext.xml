@@ -19,7 +19,8 @@
 	<mvc:default-servlet-handler />
 	<mvc:resources location="/WEB-INF/static/" mapping="/**" />
 
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
@@ -31,11 +32,12 @@
 	<!-- 可動態注入持久層 -->
 	<!-- <import resource="dao-config.xml" /> -->
 
+
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/" />
+			<mvc:mapping path="" />
 			<mvc:exclude-mapping path="/login.do" />
-			<mvc:exclude-mapping path="/login" />
+			<mvc:exclude-mapping path="/" />
 			<bean class="idv.evan.interceptors.Interceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
